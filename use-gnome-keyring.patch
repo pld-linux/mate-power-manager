@@ -1,0 +1,114 @@
+--- mate-power-manager-1.5.1/README	2012-11-23 04:26:11.000000000 +0200
++++ mate-power-manager-1.5.1-gkr/README	2013-02-17 00:41:53.504808239 +0200
+@@ -15,7 +15,7 @@
+ 
+ 	- Glib (2.13.0 or later)
+ 	- Gtk2+ (2.11.0 or later)
+-	- MATE Keyring (1.1.0 or later)
++	- GNOME Keyring (0.6.0 or later)
+ 	- DBus (0.70 or later)
+ 	- libmatenotify (1.1.0 or later)
+ 	- Cairo (1.0.0 or later)
+--- mate-power-manager-1.5.1/configure.ac	2012-11-23 04:26:11.000000000 +0200
++++ mate-power-manager-1.5.1-gkr/configure.ac	2013-02-17 00:41:53.508141726 +0200
+@@ -103,7 +103,7 @@
+ GIO_REQUIRED=2.25.0
+ GTK_REQUIRED=2.17.7
+ GDK_REQUIRED=2.11.0
+-MATE_KEYRING_REQUIRED=1.1.0
++GNOME_KEYRING_REQUIRED=0.6.0
+ DBUS_REQUIRED=1.0
+ DBUS_GLIB_REQUIRED=0.70
+ LIBMATENOTIFY_REQUIRED=1.1.0
+@@ -151,7 +151,7 @@
+ 
+ PKG_CHECK_MODULES(MATE, [
+  gtk+-2.0 >= $GTK_REQUIRED
+- mate-keyring-1 >= $MATE_KEYRING_REQUIRED
++ gnome-keyring-1 >= $GNOME_KEYRING_REQUIRED
+  cairo >= $CAIRO_REQUIRED])
+ 
+ PKG_CHECK_MODULES(GDK, [
+--- mate-power-manager-1.5.1/data/org.mate.power-manager.gschema.xml.in	2012-11-23 04:26:11.000000000 +0200
++++ mate-power-manager-1.5.1-gkr/data/org.mate.power-manager.gschema.xml.in	2013-02-17 00:41:53.504808239 +0200
+@@ -183,13 +183,13 @@
+     </key>
+     <key name="lock-keyring-suspend" type="b">
+       <default>false</default>
+-      <_summary>Lock MATE keyring on sleep</_summary>
+-      <_description>Whether the MATE keyring is locked before the computer enters suspend. This means the keyring will have to be unlocked on resume.</_description>
++      <_summary>Lock GNOME keyring on sleep</_summary>
++      <_description>Whether the GNOME keyring is locked before the computer enters suspend. This means the keyring will have to be unlocked on resume.</_description>
+     </key>
+     <key name="lock-keyring-hibernate" type="b">
+       <default>true</default>
+-      <_summary>Lock MATE keyring on sleep</_summary>
+-      <_description>Whether the MATE keyring is locked before the computer enters hibernate. This means the keyring will have to be unlocked on resume.</_description>
++      <_summary>Lock GNOME keyring on sleep</_summary>
++      <_description>Whether the GNOME keyring is locked before the computer enters hibernate. This means the keyring will have to be unlocked on resume.</_description>
+     </key>
+     <key name="spindown-enable-ac" type="b">
+       <default>false</default>
+--- mate-power-manager-1.5.1/src/gpm-control.c	2013-02-17 00:35:24.500170064 +0200
++++ gnome-power-manager-2.32.0/src/gpm-control.c	2010-08-06 17:28:52.000000000 +0300
+@@ -39,7 +39,7 @@
+ #include <glib/gi18n.h>
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+-#include <mate-keyring.h>
++#include <gnome-keyring.h>
+ #include <libupower-glib/upower.h>
+ 
+ #include "egg-debug.h"
+@@ -157,8 +157,8 @@
+ 	gboolean ret = FALSE;
+ 	gboolean do_lock;
+ 	gboolean nm_sleep;
+-	gboolean lock_mate_keyring;
+-	MateKeyringResult keyres;
++	gboolean lock_keyring;
++	GnomeKeyringResult keyres;
+ 	GpmScreensaver *screensaver;
+ 	guint32 throttle_cookie = 0;
+ 
+@@ -174,10 +174,10 @@
+ 	}
+ 
+ 	/* we should perhaps lock keyrings when sleeping #375681 */
+-	lock_mate_keyring = g_settings_get_boolean (control->priv->settings, GPM_SETTINGS_LOCK_KEYRING_SUSPEND);
+-	if (lock_mate_keyring) {
+-		keyres = mate_keyring_lock_all_sync ();
+-		if (keyres != MATE_KEYRING_RESULT_OK)
++	lock_keyring = g_settings_get_boolean (control->priv->settings, GPM_SETTINGS_LOCK_KEYRING_SUSPEND);
++	if (lock_keyring) {
++		keyres = gnome_keyring_lock_all_sync ();
++		if (keyres != GNOME_KEYRING_RESULT_OK)
+ 			egg_warning ("could not lock keyring");
+ 	}
+ 
+@@ -225,8 +225,8 @@
+ 	gboolean ret = FALSE;
+ 	gboolean do_lock;
+ 	gboolean nm_sleep;
+-	gboolean lock_mate_keyring;
+-	MateKeyringResult keyres;
++	gboolean lock_keyring;
++	GnomeKeyringResult keyres;
+ 	GpmScreensaver *screensaver;
+ 	guint32 throttle_cookie = 0;
+ 
+@@ -242,10 +242,10 @@
+ 	}
+ 
+ 	/* we should perhaps lock keyrings when sleeping #375681 */
+-	lock_mate_keyring = g_settings_get_boolean (control->priv->settings, GPM_SETTINGS_LOCK_KEYRING_HIBERNATE);
+-	if (lock_mate_keyring) {
+-		keyres = mate_keyring_lock_all_sync ();
+-		if (keyres != MATE_KEYRING_RESULT_OK) {
++	lock_keyring = g_settings_get_boolean (control->priv->settings, GPM_SETTINGS_LOCK_KEYRING_HIBERNATE);
++	if (lock_keyring) {
++		keyres = gnome_keyring_lock_all_sync ();
++		if (keyres != GNOME_KEYRING_RESULT_OK) {
+ 			egg_warning ("could not lock keyring");
+ 		}
+ 	}
