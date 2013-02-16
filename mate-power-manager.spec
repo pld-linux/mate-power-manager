@@ -13,6 +13,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel >= 2:2.17.7
 BuildRequires:	libcanberra-devel
+BuildRequires:	libcanberra-gtk-devel
 BuildRequires:	libmatekeyring-devel >= 1.1.0
 BuildRequires:	libmatenotify-devel
 BuildRequires:	libunique-devel
