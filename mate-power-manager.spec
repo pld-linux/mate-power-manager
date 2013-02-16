@@ -6,6 +6,7 @@ License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 # Source0-md5:	8ef2d2e6552461f88ac233377a5f5760
+Patch0:		bashism.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	cairo-devel >= 1.0.0
 BuildRequires:	dbus-glib-devel
@@ -41,6 +42,7 @@ MATE session.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
