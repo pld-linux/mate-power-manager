@@ -11,6 +11,8 @@ URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	cairo-devel >= 1.0.0
 BuildRequires:	dbus-glib-devel
 BuildRequires:	desktop-file-utils
+BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	docbook-utils
 BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel >= 2:2.17.7
 BuildRequires:	libcanberra-devel
@@ -19,11 +21,9 @@ BuildRequires:	libmatekeyring-devel >= 1.1.0
 BuildRequires:	libmatenotify-devel
 BuildRequires:	libunique-devel
 BuildRequires:	mate-common
-BuildRequires:	mate-control-center-devel
 BuildRequires:	mate-doc-utils
 BuildRequires:	mate-panel-devel
 BuildRequires:	popt-devel
-BuildRequires:	rarian-compat
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	systemd-devel >= 1:195
 BuildRequires:	tar >= 1:1.22
