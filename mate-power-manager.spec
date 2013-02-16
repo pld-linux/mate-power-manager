@@ -1,7 +1,7 @@
 Summary:	MATE power management service
 Name:		mate-power-manager
 Version:	1.5.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
@@ -34,6 +34,7 @@ Requires:	glib2 >= 1:2.26.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	mate-panel
+Requires:	upower
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
