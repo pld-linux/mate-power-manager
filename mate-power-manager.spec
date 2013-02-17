@@ -1,3 +1,9 @@
+# TODO
+# - it should not require systemd at runtime even if compiled with systemd
+#
+# Conditional build:
+%bcond_with	systemd		# without systemd inhibit
+
 Summary:	MATE power management service
 Name:		mate-power-manager
 Version:	1.5.1
@@ -26,7 +32,7 @@ BuildRequires:	mate-doc-utils
 BuildRequires:	mate-panel-devel
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
-BuildRequires:	systemd-devel >= 1:195
+%{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	upower-devel
 BuildRequires:	xz
@@ -53,6 +59,7 @@ NOCONFIGURE=1 ./autogen.sh
 	--disable-silent-rules \
 	--disable-static \
 	--disable-scrollkeeper \
+	%{!?with_systemd:--without-systemdinhibit} \
 	--enable-applets
 
 %{__make}
