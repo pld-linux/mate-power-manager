@@ -1,13 +1,11 @@
-# TODO
-# - it should not require systemd at runtime even if compiled with systemd
 #
 # Conditional build:
-%bcond_with	systemd		# without systemd inhibit
+%bcond_without	systemd		# without systemd inhibit
 
 Summary:	MATE power management service
 Name:		mate-power-manager
 Version:	1.5.1
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
@@ -15,6 +13,7 @@ Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 Patch0:		bashism.patch
 Patch1:		use-gnome-keyring.patch
 Patch2:		use-libnotify.patch
+Patch3:		systemd-fallback.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	cairo-devel >= 1.0.0
 BuildRequires:	dbus-glib-devel
@@ -54,6 +53,7 @@ MATE session.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
