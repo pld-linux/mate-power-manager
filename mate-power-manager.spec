@@ -41,6 +41,7 @@ Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	mate-panel
 Requires:	upower
+Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -69,6 +70,7 @@ NOCONFIGURE=1 ./autogen.sh
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
+	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name} --with-mate --with-omf
