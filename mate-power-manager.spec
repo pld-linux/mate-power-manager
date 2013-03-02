@@ -14,6 +14,7 @@ Patch0:		bashism.patch
 Patch1:		use-gnome-keyring.patch
 Patch2:		use-libnotify.patch
 Patch3:		systemd-fallback.patch
+Patch4:		uidir.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	cairo-devel >= 1.0.0
 BuildRequires:	dbus-glib-devel
@@ -39,10 +40,12 @@ BuildRequires:	xz
 Requires:	glib2 >= 1:2.26.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-Requires:	mate-panel
+Requires:	mate-panel >= 1.5.0
 Requires:	upower
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libexecdir	%{_libdir}/mate-panel
 
 %description
 MATE Power Manager uses the information and facilities provided by
@@ -55,6 +58,7 @@ MATE session.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
@@ -96,31 +100,27 @@ rm -rf $RPM_BUILD_ROOT
 %files  -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS README
+/etc/xdg/autostart/mate-power-manager.desktop
 %attr(755,root,root) %{_bindir}/mate-power-bugreport.sh
 %attr(755,root,root) %{_bindir}/mate-power-manager
 %attr(755,root,root) %{_bindir}/mate-power-preferences
 %attr(755,root,root) %{_bindir}/mate-power-statistics
 %attr(755,root,root) %{_sbindir}/mate-power-backlight-helper
-%attr(755,root,root) %{_libdir}/mate-brightness-applet
-%attr(755,root,root) %{_libdir}/mate-inhibit-applet
+%attr(755,root,root) %{_libdir}/mate-panel/mate-brightness-applet
+%attr(755,root,root) %{_libdir}/mate-panel/mate-inhibit-applet
 %{_mandir}/man1/mate-power-manager.1*
 %{_mandir}/man1/mate-power-preferences.1*
 %{_mandir}/man1/mate-power-statistics.1*
-/etc/xdg/autostart/mate-power-manager.desktop
+%{_datadir}/%{name}
 %{_desktopdir}/mate-power-preferences.desktop
 %{_desktopdir}/mate-power-statistics.desktop
 %{_iconsdir}/hicolor/*/apps/mate-*.*
+%{_datadir}/mate-panel/applets/org.mate.BrightnessApplet.mate-panel-applet
+%{_datadir}/mate-panel/applets/org.mate.InhibitApplet.mate-panel-applet
+%{_datadir}/mate-panel/ui/brightness-applet-menu.xml
+%{_datadir}/mate-panel/ui/inhibit-applet-menu.xml
 %{_datadir}/dbus-1/services/mate-power-manager.service
 %{_datadir}/dbus-1/services/org.mate.panel.applet.BrightnessAppletFactory.service
 %{_datadir}/dbus-1/services/org.mate.panel.applet.InhibitAppletFactory.service
-%{_datadir}/%{name}
-%{_datadir}/polkit-1/actions/org.mate.power.policy
-%{_datadir}/mate-2.0/ui/brightness-applet-menu.xml
-%{_datadir}/mate-2.0/ui/inhibit-applet-menu.xml
-%{_datadir}/mate-panel/applets/org.mate.BrightnessApplet.mate-panel-applet
-%{_datadir}/mate-panel/applets/org.mate.InhibitApplet.mate-panel-applet
 %{_datadir}/glib-2.0/schemas/org.mate.power-manager.gschema.xml
-
-# XXX proper dir
-%dir %{_datadir}/mate-2.0
-%dir %{_datadir}/mate-2.0/ui
+%{_datadir}/polkit-1/actions/org.mate.power.policy
