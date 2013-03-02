@@ -5,7 +5,7 @@
 Summary:	MATE power management service
 Name:		mate-power-manager
 Version:	1.5.1
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
@@ -15,6 +15,7 @@ Patch1:		use-gnome-keyring.patch
 Patch2:		use-libnotify.patch
 Patch3:		systemd-fallback.patch
 Patch4:		uidir.patch
+Patch5:		https://github.com/smkent/mate-power-manager/commit/fa0afc54fc8b29ef3251b33cb55e590edb5e441e.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	cairo-devel >= 1.0.0
 BuildRequires:	dbus-glib-devel
@@ -59,6 +60,7 @@ MATE session.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
