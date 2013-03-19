@@ -9,8 +9,8 @@
  	- DBus (0.70 or later)
  	- libmatenotify (1.1.0 or later)
  	- Cairo (1.0.0 or later)
---- mate-power-manager-1.5.1/configure.ac	2012-11-23 04:26:11.000000000 +0200
-+++ mate-power-manager-1.5.1-gkr/configure.ac	2013-02-17 00:41:53.508141726 +0200
+--- mate-power-manager-1.5.2/configure.ac~	2013-03-19 19:02:51.000000000 +0200
++++ mate-power-manager-1.5.2/configure.ac	2013-03-19 19:03:42.805800085 +0200
 @@ -103,7 +103,7 @@
  GIO_REQUIRED=2.25.0
  GTK_REQUIRED=2.17.7
@@ -20,15 +20,15 @@
  DBUS_REQUIRED=1.0
  DBUS_GLIB_REQUIRED=0.70
  LIBMATENOTIFY_REQUIRED=1.1.0
-@@ -151,7 +151,7 @@
+@@ -261,7 +261,7 @@
+ AM_CONDITIONAL([WITH_KEYRING],[test "$with_keyring" = "yes"])
  
- PKG_CHECK_MODULES(MATE, [
-  gtk+-2.0 >= $GTK_REQUIRED
-- mate-keyring-1 >= $MATE_KEYRING_REQUIRED
-+ gnome-keyring-1 >= $GNOME_KEYRING_REQUIRED
-  cairo >= $CAIRO_REQUIRED])
+ if test "$with_keyring" = "yes"; then
+-        PKG_CHECK_MODULES(KEYRING, mate-keyring-1 >= $MATE_KEYRING_REQUIRED)
++        PKG_CHECK_MODULES(KEYRING, gnome-keyring-1 >= $GNOME_KEYRING_REQUIRED)
+         AC_DEFINE([WITH_KEYRING],[1],[Define if KEYRING support is enabled])
+ fi
  
- PKG_CHECK_MODULES(GDK, [
 --- mate-power-manager-1.5.1/data/org.mate.power-manager.gschema.xml.in	2012-11-23 04:26:11.000000000 +0200
 +++ mate-power-manager-1.5.1-gkr/data/org.mate.power-manager.gschema.xml.in	2013-02-17 00:41:53.504808239 +0200
 @@ -183,13 +183,13 @@
@@ -49,28 +49,28 @@
      </key>
      <key name="spindown-enable-ac" type="b">
        <default>false</default>
---- mate-power-manager-1.5.1/src/gpm-control.c	2013-02-17 00:35:24.500170064 +0200
-+++ gnome-power-manager-2.32.0/src/gpm-control.c	2010-08-06 17:28:52.000000000 +0300
-@@ -39,7 +39,7 @@
- #include <glib/gi18n.h>
- #include <dbus/dbus-glib.h>
- #include <dbus/dbus-glib-lowlevel.h>
--#include <mate-keyring.h>
-+#include <gnome-keyring.h>
+--- mate-power-manager-1.5.2/src/gpm-control.c~	2013-03-19 19:02:51.000000000 +0200
++++ mate-power-manager-1.5.2/src/gpm-control.c	2013-03-19 19:04:50.842255183 +0200
+@@ -42,7 +33,7 @@
  #include <libupower-glib/upower.h>
  
+ #ifdef WITH_KEYRING
+-#include <mate-keyring.h>
++#include <gnome-keyring.h>
+ #endif /* WITH_KEYRING */
+ 
  #include "egg-debug.h"
-@@ -157,8 +157,8 @@
- 	gboolean ret = FALSE;
- 	gboolean do_lock;
- 	gboolean nm_sleep;
+@@ -163,8 +154,8 @@
+ 	GpmScreensaver *screensaver;
+ 	guint32 throttle_cookie = 0;
+ #ifdef WITH_KEYRING
 -	gboolean lock_mate_keyring;
 -	MateKeyringResult keyres;
 +	gboolean lock_keyring;
 +	GnomeKeyringResult keyres;
- 	GpmScreensaver *screensaver;
- 	guint32 throttle_cookie = 0;
+ #endif /* WITH_KEYRING */
  
+ 	screensaver = gpm_screensaver_new ();
 @@ -174,10 +174,10 @@
  	}
  
@@ -86,17 +86,17 @@
  			egg_warning ("could not lock keyring");
  	}
  
-@@ -225,8 +225,8 @@
- 	gboolean ret = FALSE;
- 	gboolean do_lock;
- 	gboolean nm_sleep;
+@@ -235,8 +226,8 @@
+ 	GpmScreensaver *screensaver;
+ 	guint32 throttle_cookie = 0;
+ #ifdef WITH_KEYRING
 -	gboolean lock_mate_keyring;
 -	MateKeyringResult keyres;
 +	gboolean lock_keyring;
 +	GnomeKeyringResult keyres;
- 	GpmScreensaver *screensaver;
- 	guint32 throttle_cookie = 0;
+ #endif /* WITH_KEYRING */
  
+ 	screensaver = gpm_screensaver_new ();
 @@ -242,10 +242,10 @@
  	}
  
