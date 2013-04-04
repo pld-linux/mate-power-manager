@@ -4,12 +4,12 @@
 
 Summary:	MATE power management service
 Name:		mate-power-manager
-Version:	1.5.2
+Version:	1.6.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
-# Source0-md5:	62acf64566601883f41ce956b6c8f444
+Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
+# Source0-md5:	d91d3fe90b9aeebe6dfe1636e1951a26
 Patch1:		use-gnome-keyring.patch
 Patch4:		uidir.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
