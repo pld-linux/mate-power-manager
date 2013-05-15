@@ -49,8 +49,8 @@
      </key>
      <key name="spindown-enable-ac" type="b">
        <default>false</default>
---- mate-power-manager-1.5.2/src/gpm-control.c~	2013-03-19 19:02:51.000000000 +0200
-+++ mate-power-manager-1.5.2/src/gpm-control.c	2013-03-19 19:04:50.842255183 +0200
+--- mate-power-manager-1.6.1/src/gpm-control.c~	2013-05-06 14:40:50.000000000 +0300
++++ mate-power-manager-1.6.1/src/gpm-control.c	2013-05-06 14:40:52.904974917 +0300
 @@ -42,7 +33,7 @@
  #include <libupower-glib/upower.h>
  
@@ -60,7 +60,7 @@
  #endif /* WITH_KEYRING */
  
  #include "egg-debug.h"
-@@ -163,8 +154,8 @@
+@@ -163,8 +163,8 @@
  	GpmScreensaver *screensaver;
  	guint32 throttle_cookie = 0;
  #ifdef WITH_KEYRING
@@ -69,11 +69,11 @@
 +	gboolean lock_keyring;
 +	GnomeKeyringResult keyres;
  #endif /* WITH_KEYRING */
+ #ifdef WITH_SYSTEMD_SLEEP
+ 	GError *dbus_error = NULL;
+@@ -186,10 +186,10 @@
  
- 	screensaver = gpm_screensaver_new ();
-@@ -174,10 +174,10 @@
- 	}
- 
+ #ifdef WITH_KEYRING
  	/* we should perhaps lock keyrings when sleeping #375681 */
 -	lock_mate_keyring = g_settings_get_boolean (control->priv->settings, GPM_SETTINGS_LOCK_KEYRING_SUSPEND);
 -	if (lock_mate_keyring) {
@@ -85,7 +85,7 @@
 +		if (keyres != GNOME_KEYRING_RESULT_OK)
  			egg_warning ("could not lock keyring");
  	}
- 
+ #endif /* WITH_KEYRING */
 @@ -235,8 +226,8 @@
  	GpmScreensaver *screensaver;
  	guint32 throttle_cookie = 0;

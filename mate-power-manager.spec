@@ -4,12 +4,12 @@
 
 Summary:	MATE power management service
 Name:		mate-power-manager
-Version:	1.6.0
+Version:	1.6.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	d91d3fe90b9aeebe6dfe1636e1951a26
+# Source0-md5:	de091940b4696108daea32ef64ec9926
 Patch1:		use-gnome-keyring.patch
 Patch4:		uidir.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
@@ -20,6 +20,9 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	glib2-devel
 BuildRequires:	gtk+2-devel >= 2:2.17.7
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRequires:	libcanberra-devel
 BuildRequires:	libcanberra-gtk-devel
 BuildRequires:	libgnome-keyring-devel >= 0.6.0
@@ -55,7 +58,10 @@ MATE session.
 %patch4 -p1
 
 %build
-NOCONFIGURE=1 ./autogen.sh
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	--disable-silent-rules \
 	--disable-static \
