@@ -6,14 +6,13 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.6.3
+Version:	1.8.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	ec9e4784ca6a56d2d78d892d26bc5da6
-Patch1:		use-gnome-keyring.patch
-Patch4:		uidir.patch
+Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
+# Source0-md5:	09688f0422adce20de79f17d2f7a07b0
+Patch0:		uidir.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -29,13 +28,12 @@ BuildRequires:	glib2-devel >= 1:2.26.0
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libcanberra-gtk-devel >= 0.10
-BuildRequires:	libgnome-keyring-devel >= 0.6.0
+BuildRequires:	libgnome-keyring-devel >= 3.0.0
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libtool >= 2:2
 %{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9.4}
 %{?with_gtk3:BuildRequires:	libunique3-devel >= 3.0}
 BuildRequires:	mate-common
-BuildRequires:	mate-doc-utils
 BuildRequires:	mate-panel-devel >= 1.5.0
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -46,6 +44,7 @@ BuildRequires:	upower-devel >= 0.9.1
 BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
 BuildRequires:	xorg-proto-xproto-devel >= 7.0.15
 BuildRequires:	xz
+BuildRequires:	yelp-tools
 Requires:	cairo >= 1.0.0
 Requires:	dbus >= 1.0
 Requires:	dbus-glib >= 0.70
@@ -79,8 +78,7 @@ interaktywnej sesji MATE.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch4 -p1
+%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -107,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # mate < 1.5 did not exist in pld, avoid dependency on mate-conf
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/mate-power-manager.convert
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/cmn
 
 %find_lang %{name} --with-mate --with-omf
 
