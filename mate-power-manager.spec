@@ -7,12 +7,17 @@ Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
 Version:	1.8.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
 # Source0-md5:	09688f0422adce20de79f17d2f7a07b0
 Patch0:		uidir.patch
+Patch1:		mate-power-manager_upower.patch
+Patch2:		mate-power-manager_upower-remove-recall.patch
+Patch3:		mate-power-manager_upower-use-g_signal-notify.patch
+Patch4:		mate-power-manager_upower-update-for-libupower-glib-API-changes.patch
+Patch5:		mate-power-manager_fix-use-g_signal-notify.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -79,6 +84,11 @@ interaktywnej sesji MATE.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %{__intltoolize}
