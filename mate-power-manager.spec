@@ -30,10 +30,11 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	gettext-devel >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.26.0
-%{!?with_gtk2:BuildRequires:	gtk+2-devel >= 2:2.17.7}
+%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.17.7}
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 BuildRequires:	intltool >= 0.35.0
-BuildRequires:	libcanberra-gtk-devel >= 0.10
+%{!?with_gtk3:BuildRequires:	libcanberra-gtk-devel >= 0.10}
+%{?with_gtk3:BuildRequires:	libcanberra-gtk3-devel >= 0.10}
 BuildRequires:	libgnome-keyring-devel >= 3.0.0
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libtool >= 2:2
@@ -47,7 +48,9 @@ BuildRequires:	rpmbuild(find_lang) >= 1.36
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	upower-devel >= 0.9.1
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
+BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-proto-xproto-devel >= 7.0.15
 BuildRequires:	xz
 BuildRequires:	yelp-tools
@@ -55,7 +58,7 @@ Requires:	cairo >= 1.0.0
 Requires:	dbus >= 1.0
 Requires:	dbus-glib >= 0.70
 Requires:	glib2 >= 1:2.26.0
-%{!?with_gtk2:Requires:	gtk+2 >= 2:2.17.7}
+%{!?with_gtk3:Requires:	gtk+2 >= 2:2.17.7}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -101,7 +104,6 @@ interaktywnej sesji MATE.
 %{__automake}
 %configure \
 	--enable-applets \
-	--disable-scrollkeeper \
 	--disable-silent-rules \
 	--disable-static \
 	%{?with_gtk3:--with-gtk=3.0} \
@@ -117,9 +119,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # mate < 1.5 did not exist in pld, avoid dependency on mate-conf
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/MateConf/gsettings/mate-power-manager.convert
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/cmn
 
-%find_lang %{name} --with-mate --with-omf
+%find_lang %{name} --with-mate
 
 desktop-file-install \
 	--delete-original \
@@ -165,4 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/polkit-1/actions/org.mate.power.policy
 %{_desktopdir}/mate-power-preferences.desktop
 %{_desktopdir}/mate-power-statistics.desktop
-%{_iconsdir}/hicolor/*/apps/mate-*.*
+%{_iconsdir}/hicolor/*/apps/mate-brightness-applet.*
+%{_iconsdir}/hicolor/*/apps/mate-inhibit-applet.*
+%{_iconsdir}/hicolor/*/apps/mate-power-manager.*
+%{_iconsdir}/hicolor/*/apps/mate-power-statistics.*
