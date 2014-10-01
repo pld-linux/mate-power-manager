@@ -6,19 +6,14 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.8.0
-Release:	4
+Version:	1.8.1
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	09688f0422adce20de79f17d2f7a07b0
+# Source0-md5:	c1c4e7e208f116a6daab8d0f92b82f6d
 Patch10:	uidir.patch
 Patch0:		%{name}_dbus_interface_keyboard_backlight_controls.patch
-Patch1:		%{name}_avoid-levels-is-0-warning.patch
-Patch2:		%{name}_remove-battery-recall-logic.patch
-Patch3:		%{name}_port-to-upower-0.99-API.patch
-Patch4:		%{name}_improve-UPower1-support.patch
-Patch5:		%{name}_other-round-of-fixes-for-UPower-0.99-API-changes.patch
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -89,11 +84,6 @@ interaktywnej sesji MATE.
 %setup -q
 %patch10 -p1
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 %{__intltoolize}
@@ -144,8 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 /etc/xdg/autostart/mate-power-manager.desktop
-%attr(755,root,root) %{_bindir}/mate-power-bugreport.sh
 %attr(755,root,root) %{_bindir}/mate-power-manager
+%attr(755,root,root) %{_bindir}/mate-power-manager-bugreport
 %attr(755,root,root) %{_bindir}/mate-power-preferences
 %attr(755,root,root) %{_bindir}/mate-power-statistics
 %attr(755,root,root) %{_sbindir}/mate-power-backlight-helper
