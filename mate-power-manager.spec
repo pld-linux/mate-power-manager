@@ -23,7 +23,7 @@ BuildRequires:	dbus-glib-devel >= 0.70
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
-BuildRequires:	gettext-devel >= 0.10.40
+BuildRequires:	gettext-tools >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.26.0
 %{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.17.7}
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
