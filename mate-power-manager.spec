@@ -6,14 +6,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.8.1
-Release:	3
+Version:	1.10.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	c1c4e7e208f116a6daab8d0f92b82f6d
-Patch10:	uidir.patch
-Patch0:		%{name}_dbus_interface_keyboard_backlight_controls.patch
+Source0:	http://pub.mate-desktop.org/releases/1.10/%{name}-%{version}.tar.xz
+# Source0-md5:	8f1c5d50681e701a434bb2bad55aefb9
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -24,8 +22,8 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	gettext-tools >= 0.10.40
-BuildRequires:	glib2-devel >= 1:2.26.0
-%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.17.7}
+BuildRequires:	glib2-devel >= 1:2.36.0
+%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
 %{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
 BuildRequires:	intltool >= 0.35.0
 %{!?with_gtk3:BuildRequires:	libcanberra-gtk-devel >= 0.10}
@@ -36,13 +34,14 @@ BuildRequires:	libtool >= 2:2
 %{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9.4}
 %{?with_gtk3:BuildRequires:	libunique3-devel >= 3.0}
 BuildRequires:	mate-common
+BuildRequires:	mate-desktop-devel >= 1.9.0
 BuildRequires:	mate-panel-devel >= 1.5.0
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	upower-devel >= 0.9.1
+BuildRequires:	upower-devel >= 0.9.5
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
 BuildRequires:	xorg-lib-libXrender-devel
@@ -52,8 +51,8 @@ BuildRequires:	yelp-tools
 Requires:	cairo >= 1.0.0
 Requires:	dbus >= 1.0
 Requires:	dbus-glib >= 0.70
-Requires:	glib2 >= 1:2.26.0
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.17.7}
+Requires:	glib2 >= 1:2.36.0
+%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -62,8 +61,9 @@ Requires:	libgnome-keyring >= 0.6.0
 Requires:	libnotify >= 0.7.0
 %{!?with_gtk3:Requires:	libunique >= 0.9.4}
 %{?with_gtk3:Requires:	libunique3 >= 3.0}
+Requires:	mate-desktop-libs >= 1.9.0
 Requires:	mate-panel >= 1.5.0
-Requires:	upower >= 0.9.1
+Requires:	upower >= 0.9.5
 Requires:	xorg-lib-libXrandr >= 1.3
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -82,8 +82,6 @@ interaktywnej sesji MATE.
 
 %prep
 %setup -q
-%patch10 -p1
-%patch0 -p1
 
 %build
 %{__intltoolize}
@@ -119,6 +117,9 @@ desktop-file-install \
 	--dir=$RPM_BUILD_ROOT%{_desktopdir} \
 	$RPM_BUILD_ROOT%{_desktopdir}/*.desktop
 
+# utility removed, drop man pages
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/mate-power-manager-bugreport.1
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -135,21 +136,19 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 /etc/xdg/autostart/mate-power-manager.desktop
 %attr(755,root,root) %{_bindir}/mate-power-manager
-%attr(755,root,root) %{_bindir}/mate-power-manager-bugreport
 %attr(755,root,root) %{_bindir}/mate-power-preferences
 %attr(755,root,root) %{_bindir}/mate-power-statistics
 %attr(755,root,root) %{_sbindir}/mate-power-backlight-helper
 %attr(755,root,root) %{_libexecdir}/mate-brightness-applet
 %attr(755,root,root) %{_libexecdir}/mate-inhibit-applet
+%{_mandir}/man1/mate-power-backlight-helper.1*
 %{_mandir}/man1/mate-power-manager.1*
 %{_mandir}/man1/mate-power-preferences.1*
 %{_mandir}/man1/mate-power-statistics.1*
 %{_datadir}/%{name}
 %{_datadir}/mate-panel/applets/org.mate.BrightnessApplet.mate-panel-applet
 %{_datadir}/mate-panel/applets/org.mate.InhibitApplet.mate-panel-applet
-%{_datadir}/mate-panel/ui/brightness-applet-menu.xml
-%{_datadir}/mate-panel/ui/inhibit-applet-menu.xml
-%{_datadir}/dbus-1/services/mate-power-manager.service
+%{_datadir}/dbus-1/services/org.mate.PowerManager.service
 %{_datadir}/dbus-1/services/org.mate.panel.applet.BrightnessAppletFactory.service
 %{_datadir}/dbus-1/services/org.mate.panel.applet.InhibitAppletFactory.service
 %{_datadir}/glib-2.0/schemas/org.mate.power-manager.gschema.xml
