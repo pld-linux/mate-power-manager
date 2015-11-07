@@ -42,8 +42,10 @@ BuildRequires:	rpmbuild(find_lang) >= 1.36
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	upower-devel >= 0.9.5
+BuildRequires:	xmlto
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
-BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
+BuildRequires:	xorg-lib-libXrandr-devel >= 1.3.0
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-proto-xproto-devel >= 7.0.15
 BuildRequires:	xz
@@ -57,14 +59,14 @@ Requires:	glib2 >= 1:2.36.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	libcanberra-gtk >= 0.10
-Requires:	libgnome-keyring >= 0.6.0
+Requires:	libgnome-keyring >= 3.0.0
 Requires:	libnotify >= 0.7.0
 %{!?with_gtk3:Requires:	libunique >= 0.9.4}
 %{?with_gtk3:Requires:	libunique3 >= 3.0}
 Requires:	mate-desktop-libs >= 1.9.0
 Requires:	mate-panel >= 1.5.0
 Requires:	upower >= 0.9.5
-Requires:	xorg-lib-libXrandr >= 1.3
+Requires:	xorg-lib-libXrandr >= 1.3.0
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
