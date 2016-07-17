@@ -58,7 +58,8 @@ Requires:	glib2 >= 1:2.36.0
 %{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-Requires:	libcanberra-gtk >= 0.10
+%{!?with_gtk3:Requires:	libcanberra-gtk >= 0.10}
+%{?with_gtk3:Requires:	libcanberra-gtk3 >= 0.10}
 Requires:	libgnome-keyring >= 3.0.0
 Requires:	libnotify >= 0.7.0
 %{!?with_gtk3:Requires:	libunique >= 0.9.4}
