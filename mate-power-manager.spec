@@ -6,12 +6,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.14.0
+Version:	1.16.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.14/%{name}-%{version}.tar.xz
-# Source0-md5:	e4a05fad9ee8e98bc68ea213dc2b32a4
+Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
+# Source0-md5:	9e488403bfa3fcdcc2366e081b964003
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -34,7 +34,6 @@ BuildRequires:	libtool >= 2:2
 %{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9.4}
 %{?with_gtk3:BuildRequires:	libunique3-devel >= 3.0}
 BuildRequires:	mate-common
-BuildRequires:	mate-desktop-devel >= 1.9.0
 BuildRequires:	mate-panel-devel >= 1.5.0
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -64,7 +63,6 @@ Requires:	libgnome-keyring >= 3.0.0
 Requires:	libnotify >= 0.7.0
 %{!?with_gtk3:Requires:	libunique >= 0.9.4}
 %{?with_gtk3:Requires:	libunique3 >= 3.0}
-Requires:	mate-desktop-libs >= 1.9.0
 Requires:	mate-panel >= 1.5.0
 Requires:	upower >= 0.9.5
 Requires:	xorg-lib-libXrandr >= 1.3.0
@@ -107,6 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pms
 
 %find_lang %{name} --with-mate
 
