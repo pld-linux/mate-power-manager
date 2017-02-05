@@ -6,12 +6,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.16.0
+Version:	1.16.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
-# Source0-md5:	9e488403bfa3fcdcc2366e081b964003
+# Source0-md5:	3bfcee11c7bf11ceb8515064398e6633
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
