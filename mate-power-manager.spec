@@ -1,17 +1,16 @@
 #
 # Conditional build:
-%bcond_with	gtk3	# use GTK+ 3.x instead of 2.x
 %bcond_without	systemd	# systemd inhibit service
 
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.16.2
+Version:	1.18.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.16/%{name}-%{version}.tar.xz
-# Source0-md5:	8ea2342a0a41786156f1e94d43b8344e
+Source0:	http://pub.mate-desktop.org/releases/1.18/%{name}-%{version}.tar.xz
+# Source0-md5:	0752b149f3036fb0469afa57edf3d3a2
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -23,24 +22,19 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	gettext-tools >= 0.10.40
 BuildRequires:	glib2-devel >= 1:2.36.0
-%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.24.0}
-%{?with_gtk3:BuildRequires:	gtk+3-devel >= 3.0.0}
+BuildRequires:	gtk+3-devel >= 3.14
 BuildRequires:	intltool >= 0.50.1
-%{!?with_gtk3:BuildRequires:	libcanberra-gtk-devel >= 0.10}
-%{?with_gtk3:BuildRequires:	libcanberra-gtk3-devel >= 0.10}
+BuildRequires:	libcanberra-gtk3-devel >= 0.10
 BuildRequires:	libgnome-keyring-devel >= 3.0.0
 BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libtool >= 2:2
-%{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9.4}
-%{?with_gtk3:BuildRequires:	libunique3-devel >= 3.0}
 BuildRequires:	mate-common
-BuildRequires:	mate-panel-devel >= 1.5.0
+BuildRequires:	mate-panel-devel >= 1.17.0
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	upower-devel >= 0.9.5
 BuildRequires:	xmlto
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
@@ -53,18 +47,13 @@ Requires:	cairo >= 1.0.0
 Requires:	dbus >= 1.0
 Requires:	dbus-glib >= 0.70
 Requires:	glib2 >= 1:2.36.0
-%{!?with_gtk3:Requires:	gtk+2 >= 2:2.24.0}
-%{?with_gtk3:Requires:	gtk+3 >= 3.0.0}
+Requires:	gtk+3 >= 3.14
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-%{!?with_gtk3:Requires:	libcanberra-gtk >= 0.10}
-%{?with_gtk3:Requires:	libcanberra-gtk3 >= 0.10}
+Requires:	libcanberra-gtk3 >= 0.10
 Requires:	libgnome-keyring >= 3.0.0
 Requires:	libnotify >= 0.7.0
-%{!?with_gtk3:Requires:	libunique >= 0.9.4}
-%{?with_gtk3:Requires:	libunique3 >= 3.0}
-Requires:	mate-panel >= 1.5.0
-Requires:	upower >= 0.9.5
+Requires:	mate-panel >= 1.17.0
 Requires:	xorg-lib-libXrandr >= 1.3.0
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -95,7 +84,6 @@ interaktywnej sesji MATE.
 	--enable-applets \
 	--disable-silent-rules \
 	--disable-static \
-	%{?with_gtk3:--with-gtk=3.0} \
 	%{!?with_systemd:--without-systemdinhibit}
 
 %{__make}
@@ -106,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pms
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ku_IQ,pms}
 
 %find_lang %{name} --with-mate
 
@@ -116,9 +104,6 @@ desktop-file-install \
 	--add-category=X-Mate \
 	--dir=$RPM_BUILD_ROOT%{_desktopdir} \
 	$RPM_BUILD_ROOT%{_desktopdir}/*.desktop
-
-# utility removed, drop man pages
-%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/mate-power-manager-bugreport.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
