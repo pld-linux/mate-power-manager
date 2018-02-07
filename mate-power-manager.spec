@@ -5,12 +5,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.18.1
+Version:	1.20.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.18/%{name}-%{version}.tar.xz
-# Source0-md5:	3dbda23096d3dfdf36862a667e9d45c8
+Source0:	http://pub.mate-desktop.org/releases/1.20/%{name}-%{version}.tar.xz
+# Source0-md5:	0fecf9b5a5d8b84cd41b31ca9706f70a
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -21,8 +21,8 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
 BuildRequires:	gettext-tools >= 0.10.40
-BuildRequires:	glib2-devel >= 1:2.36.0
-BuildRequires:	gtk+3-devel >= 3.14
+BuildRequires:	glib2-devel >= 1:2.50.0
+BuildRequires:	gtk+3-devel >= 3.22
 BuildRequires:	intltool >= 0.50.1
 BuildRequires:	libcanberra-gtk3-devel >= 0.10
 BuildRequires:	libgnome-keyring-devel >= 3.0.0
@@ -48,8 +48,8 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	cairo >= 1.0.0
 Requires:	dbus >= 1.0
 Requires:	dbus-glib >= 0.70
-Requires:	glib2 >= 1:2.36.0
-Requires:	gtk+3 >= 3.14
+Requires:	glib2 >= 1:2.50.0
+Requires:	gtk+3 >= 3.22
 Requires:	hicolor-icon-theme
 Requires:	libcanberra-gtk3 >= 0.10
 Requires:	libgnome-keyring >= 3.0.0
@@ -96,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ku_IQ,pms}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{jv,ku_IQ,pms}
 
 %find_lang %{name} --with-mate
 
