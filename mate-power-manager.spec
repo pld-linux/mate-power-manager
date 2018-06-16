@@ -5,12 +5,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.20.1
+Version:	1.20.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.20/%{name}-%{version}.tar.xz
-# Source0-md5:	7fa1bcadd40fdf0d1d8b113988d21eec
+# Source0-md5:	5e15c3876b6f2af8ff41c3ab1da3e88d
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -96,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{jv,ku_IQ,pms}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{es_ES,frp,jv,ku_IQ,pms}
 
 %find_lang %{name} --with-mate
 
