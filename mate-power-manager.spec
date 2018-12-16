@@ -6,7 +6,7 @@ Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
 Version:	1.20.2
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://pub.mate-desktop.org/releases/1.20/%{name}-%{version}.tar.xz
@@ -60,7 +60,9 @@ Requires:	xorg-lib-libXrandr >= 1.3.0
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_libexecdir	%{_libdir}/mate-panel
+# use the same libexecdir as mate-panel
+# (better solution: store mate-panel libexecdir in libmatepanelapplet-*.pc and read it here)
+%define		matepanel_libexecdir	%{_libexecdir}/mate-panel
 
 %description
 MATE Power Manager uses the information and facilities provided by
@@ -83,6 +85,7 @@ interaktywnej sesji MATE.
 %{__autoheader}
 %{__automake}
 %configure \
+	--libexecdir=%{matepanel_libexecdir} \
 	--enable-applets \
 	--disable-silent-rules \
 	--disable-static \
@@ -126,8 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/mate-power-preferences
 %attr(755,root,root) %{_bindir}/mate-power-statistics
 %attr(755,root,root) %{_sbindir}/mate-power-backlight-helper
-%attr(755,root,root) %{_libexecdir}/mate-brightness-applet
-%attr(755,root,root) %{_libexecdir}/mate-inhibit-applet
+%attr(755,root,root) %{matepanel_libexecdir}/mate-brightness-applet
+%attr(755,root,root) %{matepanel_libexecdir}/mate-inhibit-applet
 %{_mandir}/man1/mate-power-backlight-helper.1*
 %{_mandir}/man1/mate-power-manager.1*
 %{_mandir}/man1/mate-power-preferences.1*
