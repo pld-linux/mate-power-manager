@@ -5,12 +5,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.22.2
+Version:	1.24.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://pub.mate-desktop.org/releases/1.22/%{name}-%{version}.tar.xz
-# Source0-md5:	16cb90fb21725c2524a0dbb6dd92e3a3
+Source0:	http://pub.mate-desktop.org/releases/1.24/%{name}-%{version}.tar.xz
+# Source0-md5:	91a90ac75d4ea6ee2da31823df222485
 URL:		http://wiki.mate-desktop.org/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -20,10 +20,9 @@ BuildRequires:	dbus-glib-devel >= 0.70
 BuildRequires:	desktop-file-utils
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	docbook-utils
-BuildRequires:	gettext-tools >= 0.10.40
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.50.0
 BuildRequires:	gtk+3-devel >= 3.22
-BuildRequires:	intltool >= 0.50.1
 BuildRequires:	libcanberra-gtk3-devel >= 0.10
 BuildRequires:	libgnome-keyring-devel >= 3.0.0
 BuildRequires:	libnotify-devel >= 0.7.0
@@ -35,7 +34,7 @@ BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
-BuildRequires:	upower-devel >= 0.9.5
+BuildRequires:	upower-devel >= 0.99.8
 BuildRequires:	xmlto
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
@@ -55,7 +54,7 @@ Requires:	libcanberra-gtk3 >= 0.10
 Requires:	libgnome-keyring >= 3.0.0
 Requires:	libnotify >= 0.7.0
 Requires:	mate-panel >= 1.17.0
-Requires:	upower >= 0.9.5
+Requires:	upower >= 0.99.8
 Requires:	xorg-lib-libXrandr >= 1.3.0
 Suggests:	udisks
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -78,7 +77,6 @@ interaktywnej sesji MATE.
 %setup -q
 
 %build
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
