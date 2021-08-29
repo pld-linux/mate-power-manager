@@ -11,7 +11,7 @@ License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
 # Source0-md5:	01c2a97fa6b6091f04446988fc1aad8d
-URL:		http://wiki.mate-desktop.org/mate-power-manager
+URL:		https://github.com/mate-desktop/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	cairo-devel >= 1.0.0
@@ -32,6 +32,7 @@ BuildRequires:	mate-panel-devel >= 1.17.0
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
+BuildRequires:	rpmbuild(macros) >= 1.596
 %{?with_systemd:BuildRequires:	systemd-devel >= 1:195}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	upower-devel >= 0.99.8
