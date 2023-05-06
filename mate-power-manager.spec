@@ -30,6 +30,7 @@ BuildRequires:	libtool >= 2:2
 BuildRequires:	mate-common
 BuildRequires:	mate-panel-devel >= 1.17.0
 BuildRequires:	pkgconfig
+BuildRequires:	polkit-devel
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(find_lang) >= 1.36
 BuildRequires:	rpmbuild(macros) >= 1.596
