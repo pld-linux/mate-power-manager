@@ -5,12 +5,12 @@
 Summary:	MATE power management service
 Summary(pl.UTF-8):	Usługa zarządzania energią dla MATE
 Name:		mate-power-manager
-Version:	1.26.1
+Version:	1.28.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	https://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-# Source0-md5:	e789755a50a87a4c91b35218f2e0620a
+Source0:	https://pub.mate-desktop.org/releases/1.28/%{name}-%{version}.tar.xz
+# Source0-md5:	6859e63c87d8a3fd2e4352366fb3fe21
 URL:		https://github.com/mate-desktop/mate-power-manager
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.9
@@ -28,6 +28,7 @@ BuildRequires:	libnotify-devel >= 0.7.0
 BuildRequires:	libsecret-devel >= 0.11
 BuildRequires:	libtool >= 2:2
 BuildRequires:	mate-common
+BuildRequires:	mate-desktop-devel >= 1.27.1
 BuildRequires:	mate-panel-devel >= 1.17.0
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-devel
@@ -55,6 +56,7 @@ Requires:	hicolor-icon-theme
 Requires:	libcanberra-gtk3 >= 0.10
 Requires:	libnotify >= 0.7.0
 Requires:	libsecret >= 0.11
+Requires:	mate-desktop >= 1.27.1
 Requires:	mate-panel >= 1.17.0
 Requires:	upower >= 0.99.8
 Requires:	xorg-lib-libXrandr >= 1.3.0
